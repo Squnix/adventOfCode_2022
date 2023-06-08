@@ -38,35 +38,47 @@ const points = {
   [gameResults.WIN]: 6,
 };
 
-function calculatePoints(game: [Shape, Shape]): number {
+function calculatePoints(game: [Shape, ExpectedResult]): number {
   let tempPoints = 0;
   tempPoints += points[ExpectedResults[game[1]]];
-  if(ExpectedResults[game[1]] === gameResults.LOSE) {
-    if(Shapes[game[0]] === ShapesNames.ROCK) {
-      tempPoints = points[gameResults.WIN];
-    } else if(Shapes[game[0]] === ShapesNames.PAPER) {
-      tempPoints = points[gameResults.LOSE];
-    } else if(Shapes[game[0]] === ShapesNames.SCISSORS) {
-      tempPoints = points[gameResults.DRAW];
+  if (ExpectedResults[game[1]] === gameResults.LOSE) {
+    if (Shapes[game[0]] === ShapesNames.ROCK) {
+      tempPoints += points[ShapesNames.SCISSORS];
+    } else if (Shapes[game[0]] === ShapesNames.PAPER) {
+      tempPoints += points[ShapesNames.ROCK];
+    } else if (Shapes[game[0]] === ShapesNames.SCISSORS) {
+      tempPoints += points[ShapesNames.PAPER];
     }
   } else if (ExpectedResults[game[1]] === gameResults.DRAW) {
-  
+    if (Shapes[game[0]] === ShapesNames.ROCK) {
+      tempPoints += points[ShapesNames.ROCK];
+    } else if (Shapes[game[0]] === ShapesNames.PAPER) {
+      tempPoints += points[ShapesNames.PAPER];
+    } else if (Shapes[game[0]] === ShapesNames.SCISSORS) {
+      tempPoints += points[ShapesNames.SCISSORS];
+    }
   } else {
-
+    if (Shapes[game[0]] === ShapesNames.ROCK) {
+      tempPoints += points[ShapesNames.PAPER];
+    } else if (Shapes[game[0]] === ShapesNames.PAPER) {
+      tempPoints += points[ShapesNames.SCISSORS];
+    } else if (Shapes[game[0]] === ShapesNames.SCISSORS) {
+      tempPoints += points[ShapesNames.ROCK];
+    }
   }
   return tempPoints;
 }
 
 const calculateResult = async (stream: fs.ReadStream) => {
   let points = 0;
-  const nextGame: [Shape, Shape] = ["A", "A"];
+  const nextGame: [Shape, ExpectedResult] = ["A", "X"];
   const rl = readLine.createInterface({
     input: stream,
     crlfDelay: Infinity,
   });
   rl.on("line", (line) => {
     nextGame[0] = line[0] as Shape;
-    nextGame[1] = line[2] as Shape;
+    nextGame[1] = line[2] as ExpectedResult;
     points += calculatePoints(nextGame);
   });
   await events.once(rl, "close");
