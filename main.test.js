@@ -9,6 +9,11 @@ import solution3_2 from "./solution3/3_2";
 import solution4 from "./solution4/4";
 import solution4_2 from "./solution4/4_2";
 import solution5 from "./solution5/5";
+import solution5_2 from './solution5/5_2';
+import solution6 from './solution6/6';
+import solution6_2 from './solution6/6_2';
+import solution7 from './solution7/7';
+import solution7_2 from './solution7/7_2';
 
 test("First puzzle part 1", async () => {
   const stream = utils.createStreamFromFile("./data/1.txt");
@@ -70,4 +75,40 @@ test("Fifth puzzle part 1", async () => {
   expect(
     await utils.meassureDuration(solution5, stream, "Solution 5, part one")
   ).toBe("TLNGFGMFN");
+});
+
+
+test("Fifth puzzle part 2", async () => {
+  const stream = utils.createStreamFromFile("./data/5.txt");
+  expect(
+    await utils.meassureDuration(solution5_2, stream, "Solution 5, part two")
+  ).toBe("FGLQJCMBD");
+});
+
+test("Sixth puzzle part 1", async () => {
+  const stream = utils.createStreamFromFile("./data/6.txt");
+  expect(
+    await utils.meassureDuration(solution6, stream, "Solution 6, part one")
+  ).toBe(1987);
+});
+
+test("Sixth puzzle part 2", async () => {
+  const stream = utils.createStreamFromFile("./data/6.txt");
+  expect(
+    await utils.meassureDuration(solution6_2, stream, "Solution 6, part two")
+  ).toBe(3059);
+});
+
+test("Seventh puzzle part 1", async () => {
+  const stream = utils.createStreamFromFile("./data/7.txt");
+  expect(
+    await utils.meassureDuration(solution7, stream, "Solution 7, part one")
+  ).toBe(1297159);
+});
+
+test("Seventh puzzle part 2", async () => {
+  const stream = utils.createStreamFromFile("./data/7.txt");
+  expect(
+    await utils.meassureDuration(solution7_2, stream, "Solution 7, part two")
+  ).toBe(3866390);
 });
