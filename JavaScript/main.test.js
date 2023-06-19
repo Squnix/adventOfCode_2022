@@ -25,6 +25,7 @@ test("First puzzle part 1", async () => {
     await utils.meassureDuration(solution1, stream, "Solution 1, part one")
   ).toBe(75622);
 });
+
 test("First puzzle part 2", async () => {
   const stream = utils.createStreamFromFile("./data/1.txt");
   expect(
@@ -53,7 +54,7 @@ test("Third puzzle part 1", async () => {
   ).toBe(7742);
 });
 
-test("Thirs puzzle part 2", async () => {
+test("Third puzzle part 2", async () => {
   const stream = utils.createStreamFromFile("./data/3.txt");
   expect(
     await utils.meassureDuration(solution3_2, stream, "Solution 3, part two")

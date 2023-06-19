@@ -11,27 +11,24 @@ const getTopThreeCalories = async (dataStream: fs.ReadStream) => {
   });
   rl.on("line", (line) => {
     if (line === "") {
-      if (topThree[2] < elfTotal) {
-        topThree[2] = elfTotal;
+      if (topThree[0] < elfTotal) {
+        topThree[0] = elfTotal;
         topThree.sort((a, b) => {
-          if (a > b) {
-            return -1;
-          }
-          if (a < b) {
-            return 1;
-          }
-          return 0;
+          return a - b;
         });
       }
       elfTotal = 0;
-    } else {
-      elfTotal += parseInt(line);
+      return;
     }
+    const calories = parseInt(line);
+    if (isNaN(calories))
+      return new Error(`NaN from parsing line to int: ${line}`);
+    elfTotal += calories;
   });
   await events.once(rl, "close");
   return topThree.reduce((prev, curr) => {
     return prev + curr;
-  }, 0);
+  });
 };
 
 export default getTopThreeCalories;

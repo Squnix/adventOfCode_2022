@@ -16,7 +16,10 @@ const getMostCalories = async (dataStream: fs.ReadStream) => {
       caloriesFromElf = 0;
       return;
     }
-    caloriesFromElf += parseInt(line); 
+    const calories = parseInt(line);
+    if (isNaN(calories))
+      return new Error(`NaN from parsing line to int: ${line}`);
+    caloriesFromElf += calories;
   });
   await events.once(rl, "close");
   return mostCalories;

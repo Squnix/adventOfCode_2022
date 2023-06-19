@@ -2,7 +2,6 @@ import * as fs from "fs";
 
 export function createStreamFromFile(path: string): fs.ReadStream {
   const stream = fs.createReadStream(path, { encoding: "utf8" });
-  stream.setEncoding("utf8");
   return stream;
 }
 
