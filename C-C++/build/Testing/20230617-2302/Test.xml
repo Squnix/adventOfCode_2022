@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Darwin-clang++"
+	BuildStamp="20230617-2302-Experimental"
+	Name="ukaszs-MacBook-Pro.local"
+	Generator="ctest-3.26.4"
+	CompilerName="/usr/bin/clang++"
+	CompilerVersion=""
+	OSName="macOS"
+	Hostname="ukaszs-MacBook-Pro.local"
+	OSRelease="12.6.6"
+	OSVersion="21G646"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="70"
+	ProcessorCacheSize="32768"
+	NumberOfLogicalCPU="8"
+	NumberOfPhysicalCPU="4"
+	TotalVirtualMemory="0"
+	TotalPhysicalMemory="16384"
+	LogicalProcessorsPerPhysical="8"
+	ProcessorClockFrequency="2800"
+	>
+	<Testing>
+		<StartDateTime>Jun 18 01:07 CEST</StartDateTime>
+		<StartTestTime>1687043277</StartTestTime>
+		<TestList/>
+		<EndDateTime>Jun 18 01:07 CEST</EndDateTime>
+		<EndTestTime>1687043277</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

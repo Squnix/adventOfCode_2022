@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/squnix/Projects/adventofcode/C-C++/build",
+  "command": "/usr/bin/clang -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=12.6 -o CMakeFiles/advent_of_code_2022.dir/src/main.c.o -c /Users/squnix/Projects/adventofcode/C-C++/src/main.c",
+  "file": "/Users/squnix/Projects/adventofcode/C-C++/src/main.c",
+  "output": "CMakeFiles/advent_of_code_2022.dir/src/main.c.o"
+}
+]
