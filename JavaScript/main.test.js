@@ -19,6 +19,7 @@ import solution8_2 from './solution8/8_2';
 import solution9 from './solution9/9';
 import solution9_2 from './solution9/9_2';
 import solution10 from './solution10/10';
+import solution10_2 from './solution10/10_2';
 
 test("First puzzle part 1", async () => {
   const stream = utils.createStreamFromFile("./data/1.txt");
@@ -151,4 +152,11 @@ test("Tenth puzzle part 1", async () => {
   expect(
     await utils.meassureDuration(solution10, stream, "Solution 10, part one")
   ).toBe(14240);
+});
+
+test("Tenth puzzle part 2", async () => {
+  const stream = utils.createStreamFromFile("./data/10.txt");
+  expect(
+    await utils.meassureDuration(solution10_2, stream, "Solution 10, part two")
+  ).toBe("PLULKBZH");
 });
