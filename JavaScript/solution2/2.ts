@@ -14,16 +14,20 @@ enum gameResults {
   LOSE = "LOSE",
 }
 
-const Shapes = {
+const ElfShapes = {
   A: ShapesNames.ROCK,
   B: ShapesNames.PAPER,
   C: ShapesNames.SCISSORS,
+};
+
+const PlayerShapes = {
   X: ShapesNames.ROCK,
   Y: ShapesNames.PAPER,
   Z: ShapesNames.SCISSORS,
 };
 
-type Shape = keyof typeof Shapes;
+type ElfShape = keyof typeof ElfShapes;
+type PlayerShape = keyof typeof PlayerShapes;
 
 const points = {
   [ShapesNames.ROCK]: 1,
@@ -34,34 +38,34 @@ const points = {
   [gameResults.WIN]: 6,
 };
 
-function calculatePoints(game: [Shape, Shape]): number {
+function calculatePoints(game: [ElfShape, PlayerShape]): number {
   let tempPoints = 0;
-  tempPoints += points[Shapes[game[1]]];
+  tempPoints += points[PlayerShapes[game[1]]];
   if (
-    (Shapes[game[0]] === ShapesNames.ROCK &&
-      Shapes[game[1]] === ShapesNames.PAPER) ||
-    (Shapes[game[0]] === ShapesNames.PAPER &&
-      Shapes[game[1]] === ShapesNames.SCISSORS) ||
-    (Shapes[game[0]] === ShapesNames.SCISSORS &&
-      Shapes[game[1]] === ShapesNames.ROCK)
+    (ElfShapes[game[0]] === ShapesNames.ROCK &&
+      PlayerShapes[game[1]] === ShapesNames.PAPER) ||
+    (ElfShapes[game[0]] === ShapesNames.PAPER &&
+      PlayerShapes[game[1]] === ShapesNames.SCISSORS) ||
+    (ElfShapes[game[0]] === ShapesNames.SCISSORS &&
+      PlayerShapes[game[1]] === ShapesNames.ROCK)
   ) {
     tempPoints += points[gameResults.WIN];
   } else if (
-    (Shapes[game[0]] === ShapesNames.ROCK &&
-      Shapes[game[1]] === ShapesNames.ROCK) ||
-    (Shapes[game[0]] === ShapesNames.PAPER &&
-      Shapes[game[1]] === ShapesNames.PAPER) ||
-    (Shapes[game[0]] === ShapesNames.SCISSORS &&
-      Shapes[game[1]] === ShapesNames.SCISSORS)
+    (ElfShapes[game[0]] === ShapesNames.ROCK &&
+      PlayerShapes[game[1]] === ShapesNames.ROCK) ||
+    (ElfShapes[game[0]] === ShapesNames.PAPER &&
+      PlayerShapes[game[1]] === ShapesNames.PAPER) ||
+    (ElfShapes[game[0]] === ShapesNames.SCISSORS &&
+      PlayerShapes[game[1]] === ShapesNames.SCISSORS)
   ) {
     tempPoints += points[gameResults.DRAW];
   } else if (
-    (Shapes[game[0]] === ShapesNames.ROCK &&
-      Shapes[game[1]] === ShapesNames.PAPER) ||
-    (Shapes[game[0]] === ShapesNames.PAPER &&
-      Shapes[game[1]] === ShapesNames.SCISSORS) ||
-    (Shapes[game[0]] === ShapesNames.SCISSORS &&
-      Shapes[game[1]] === ShapesNames.ROCK)
+    (ElfShapes[game[0]] === ShapesNames.ROCK &&
+      PlayerShapes[game[1]] === ShapesNames.PAPER) ||
+    (ElfShapes[game[0]] === ShapesNames.PAPER &&
+      PlayerShapes[game[1]] === ShapesNames.SCISSORS) ||
+    (ElfShapes[game[0]] === ShapesNames.SCISSORS &&
+      PlayerShapes[game[1]] === ShapesNames.ROCK)
   ) {
     tempPoints += points[gameResults.LOSE];
   }
@@ -70,15 +74,22 @@ function calculatePoints(game: [Shape, Shape]): number {
 
 const calculateResult = async (dataStream: fs.ReadStream) => {
   let points = 0;
-  const nextGame: [Shape, Shape] = ["A", "A"];
+  const nextGame: [ElfShape | undefined, PlayerShape | undefined] = [
+    undefined,
+    undefined,
+  ];
   const rl = readLine.createInterface({
     input: dataStream,
     crlfDelay: Infinity,
   });
   rl.on("line", (line) => {
-    nextGame[0] = line[0] as Shape;
-    nextGame[1] = line[2] as Shape;
-    points += calculatePoints(nextGame);
+    if (line[0] in ElfShapes && line[2] in PlayerShapes) {
+      nextGame[0] = line[0] as ElfShape;
+      nextGame[1] = line[2] as PlayerShape;
+      points += calculatePoints(nextGame as [ElfShape, PlayerShape]);
+    } else {
+      throw new Error(`Not implemented value in line: ${line}`);
+    }
   });
   await events.once(rl, "close");
   return points;
